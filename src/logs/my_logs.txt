@@ -1,0 +1,48 @@
+окт. 18, 2021 7:25:20 PM Controllers.Controller Process
+INFO: ALL OKAY
+окт. 18, 2021 7:54:09 PM Controllers.Controller Process
+INFO: Starting program
+окт. 18, 2021 7:54:13 PM Controllers.Controller Enter
+WARNING: Попытка входа в аккаунт user
+окт. 18, 2021 7:57:18 PM Controllers.Controller Process
+INFO: Starting program
+окт. 18, 2021 7:57:52 PM Controllers.Controller Process
+INFO: Starting program
+окт. 18, 2021 8:13:24 PM Controllers.Controller Process
+INFO: Starting program
+окт. 18, 2021 8:13:31 PM Controllers.Controller Enter
+WARNING: Попытка входа в аккаунт user
+окт. 18, 2021 8:13:35 PM Controllers.Controller Process
+INFO: Выполнен вход в аккаунт user
+окт. 18, 2021 8:13:38 PM Controllers.Controller Process
+INFO: Файл успешно загружен
+окт. 18, 2021 8:14:09 PM Controllers.Controller Process
+INFO: Машина успешно добавлена
+окт. 18, 2021 8:14:28 PM Controllers.Controller Process
+WARNING: Безуспешная попытка удалить стиральную машину
+окт. 18, 2021 8:14:49 PM Controllers.Controller Process
+INFO: Машина успешно удалена
+окт. 18, 2021 8:14:53 PM Controllers.Controller Process
+INFO: Файл успешно сохранен
+окт. 18, 2021 8:14:53 PM Controllers.Controller Process
+INFO: user закончил работу
+окт. 19, 2021 10:47:44 AM Controllers.Controller Process
+INFO: Starting program
+окт. 19, 2021 10:47:48 AM Controllers.Controller Enter
+WARNING: Попытка входа в аккаунт user
+окт. 19, 2021 10:48:02 AM Controllers.Controller Process
+INFO: Выполнен вход в аккаунт user
+окт. 19, 2021 10:48:30 AM Controllers.Controller Process
+INFO: Файл успешно загружен
+окт. 19, 2021 10:49:27 AM Controllers.Controller Process
+WARNING: Безуспешная попытка добавить стиральную машину
+окт. 19, 2021 10:53:25 AM Controllers.Controller Process
+INFO: Starting program
+окт. 19, 2021 10:53:28 AM Controllers.Controller Process
+INFO: Выполнен вход в аккаунт user
+окт. 19, 2021 10:53:31 AM Controllers.Controller Process
+INFO: Файл успешно загружен
+окт. 19, 2021 10:53:52 AM Controllers.Controller Process
+WARNING: Безуспешная попытка добавить стиральную машину
+окт. 19, 2021 10:54:14 AM Controllers.Controller Process
+INFO: Машина успешно добавлена
