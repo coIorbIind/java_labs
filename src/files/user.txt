@@ -1,5 +1,0 @@
-root
-123
-user
-by
-
