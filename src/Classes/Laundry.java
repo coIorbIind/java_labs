@@ -34,10 +34,24 @@ public class Laundry {
         new_machine.setFabric_softener(soft_list[(int)Math.floor(Math.random() * soft_list.length)]);
         new_machine.setTemperature(Temperature.values()[(int)Math.floor(Math.random() * Temperature.values().length)]);
         new_machine.setColor(Color.values()[(int)Math.floor(Math.random() * Color.values().length)]);
-        washing_machines_linked.add(new_machine);
+        washing_machines_array.add(new_machine);
     }
 
+    /**
+     * Removing element from washing_machines_array
+     * @param i - index of element for removing
+     */
+    public void RemoveElementFromTheArrayList(int i){
+        washing_machines_array.remove(i);
+    }
 
+    /**
+     * Removing element from washing_machines_linked
+     * @param i - index of element for removing
+     */
+    public void RemoveElementFromTheLinkedList(int i){
+        washing_machines_linked.remove(i);
+    }
     /**
      *
      * @return linked list of washing machines
@@ -139,12 +153,9 @@ public class Laundry {
     public boolean SaveFile(String FileName) throws java.io.IOException{
         boolean Result = false;
 //        FileWriter writer = null;
-        try(FileWriter writer = new FileWriter(FileName, false)){
+        try(FileWriter writer = new FileWriter(FileName, false)) {
             writer.write(this.ToFile());
             Result = true;
-        }
-        catch(IOException ex){
-            System.err.println(ex.getMessage());
         }
         return Result;
     }
