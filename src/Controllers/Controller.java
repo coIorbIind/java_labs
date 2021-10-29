@@ -6,7 +6,6 @@ import Views.View;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -131,7 +130,7 @@ public class Controller {
                 }
                 case 4 -> {
                     WashingMachine new_machine = View.InputMachine();
-                    boolean flag = laundry.getWashing_machines().contains(new_machine);
+                    boolean flag = laundry.getWashing_machines_array().contains(new_machine);
                     if (flag) {
                         View.Out("Машина с такими параметрами уже существует");
                         if (DEBUG)
@@ -152,10 +151,10 @@ public class Controller {
                     boolean flag = false;
                     int index = - 1;
                     for (WashingMachine machine:
-                            laundry.getWashing_machines()) {
+                            laundry.getWashing_machines_array()) {
                         if (machine.equals(temp)){
                             flag = true;
-                            index = laundry.getWashing_machines().indexOf(machine);
+                            index = laundry.getWashing_machines_array().indexOf(machine);
                             break;
                         }
                     }
@@ -177,7 +176,7 @@ public class Controller {
                     ColoredLinen new_linen = View.InputLinen();
                     boolean flag = false;
                     for (WashingMachine machine:
-                            laundry.getWashing_machines()) {
+                            laundry.getWashing_machines_array()) {
                         if (machine.getTemperature() == new_linen.getTemperature_of_washing() && machine.getColor() == new_linen.getColor()){
                             flag = true;
                             machine.addLinen(new_linen);
