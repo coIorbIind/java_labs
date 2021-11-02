@@ -7,10 +7,9 @@ import Views.View;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 
 public class Controller {
@@ -19,6 +18,7 @@ public class Controller {
     private static boolean ROOT = false;
     private static boolean DEBUG = false;
     private static boolean TEST = false;
+    private static String LOG_CONFIG = "";
 //    static Logger LOGGER;
 //    static {
 //        try(FileInputStream ins = new FileInputStream("C:\\Users\\admin\\IdeaProjects\\Lab_3\\src\\config\\log.config")){
@@ -42,18 +42,19 @@ public class Controller {
         ROOT = Boolean.parseBoolean(props.getProperty("ROOT"));
         DEBUG = Boolean.parseBoolean(props.getProperty("DEBUG"));
         TEST = Boolean.parseBoolean(props.getProperty("TEST"));
+        LOG_CONFIG = props.getProperty("LOG_CONFIG");
     }
 
     /**
      * Trying to enter account
      */
-    public static void Enter() {
+    public static void Enter(myLogger my_logger) {
         String log_pass = View.inputStartData();
         while (!(USER+" "+PASSWORD).equals(log_pass)) {
             View.Out("В доступе отказано! Проверьте введенные данные");
             if (DEBUG)
 //                LOGGER.log(Level.WARNING, "Попытка входа в аккаунт " + USER);
-                My_Logger.addLog(Level.WARNING, "Попытка входа в аккаунт " + USER);
+                my_logger.addLog(Level.WARNING, "Попытка входа в аккаунт " + USER);
             log_pass = View.inputStartData();
         }
     }
@@ -61,91 +62,97 @@ public class Controller {
     /**
      * Main process
      */
-    public static void Process() {
+    public static int Process() {
         Laundry laundry = new Laundry();
         try {
             Start();
-            if (DEBUG)
-                My_Logger.addLog(Level.INFO, "Starting program");
         } catch (IOException ex) {
             View.Out("Не удалось загрузить файл конфигурации");
-            if (DEBUG)
-                My_Logger.addErr(new IOException("Не удалось загрузить файл конфигурации"));
+            return 0;
         }
-        Enter();
+        myLogger my_logger;
+        try {
+            my_logger = new myLogger(LOG_CONFIG);
+        }
+        catch (IOException e) {
+            View.Out("Не удалось загрузить файл настроек логера");
+            return 0;
+        }
+        Enter(my_logger);
         if (DEBUG)
-            My_Logger.addLog(Level.INFO, "Выполнен вход в аккаунт " + USER);
+            my_logger.addLog(Level.INFO, "Выполнен вход в аккаунт " + USER);
         if (ROOT && TEST) {
             View.Out("Testing ArrayList");
-            My_Logger.addLog(Level.INFO, "Testing ArrayList");
+            my_logger.addLog(Level.INFO, "Testing ArrayList");
             for (int j = 0; j < 5; j++) {
                 long allTime = 0;
-                My_Logger.addLog(Level.INFO, "Testing ArrayList " + Math.pow(10, j + 1));
-                long startTime = System.currentTimeMillis();
+                my_logger.addLog(Level.INFO, "Testing ArrayList " + Math.pow(10, j + 1));
+//                long startTime = System.nanoTime();
                 for (int i = 0; i < Math.pow(10, j + 1); i++) {
-                    long currentStart = System.currentTimeMillis();
+                    long currentStart = System.nanoTime();
                     laundry.GenerateElementToTheArrayList();
-                    long currentEnd = System.currentTimeMillis();
+                    long currentEnd = System.nanoTime();
                     long oneTime = currentEnd - currentStart;
                     allTime += oneTime;
-                    My_Logger.addLog(Level.INFO, "add, ID = " + i + ", " + oneTime);
+                    my_logger.addLog(Level.INFO, "add, ID = " + i + ", " + oneTime);
                 }
-                long endTime = System.currentTimeMillis();
+//                long endTime = System.currentTimeMillis();
                 String text = "Процесс заполнения ArrayList, состоящий из " + Math.pow(10, j + 1) + " занял " +
-                        (endTime - startTime) + ". Среднее время: " + (endTime - startTime) / Math.pow(10, j + 1);
+                        (allTime) + ". Среднее время: " + (allTime) / Math.pow(10, j + 1);
                 View.Out(text);
-                My_Logger.addLog(Level.INFO, text);
+                my_logger.addLog(Level.INFO, text);
 
-                startTime = System.currentTimeMillis();
+                allTime = 0;
+//                startTime = System.currentTimeMillis();
                 for (int i = 0; i < Math.pow(10, j + 1) / 10; i++) {
-                    long currentStart = System.currentTimeMillis();
+                    long currentStart = System.nanoTime();
                     laundry.RemoveElementFromTheArrayList(i);
-                    long currentEnd = System.currentTimeMillis();
+                    long currentEnd = System.nanoTime();
                     long oneTime = currentEnd - currentStart;
                     allTime += oneTime;
-                    My_Logger.addLog(Level.INFO, "remove, ID = " + i + ", " + oneTime);
+                    my_logger.addLog(Level.INFO, "remove, ID = " + i + ", " + oneTime);
                 }
-                endTime = System.currentTimeMillis();
+//                endTime = System.currentTimeMillis();
                 text = "Процесс удаления из ArrayList " + Math.pow(10, j + 1) / 10 + " элементов занял " +
-                        (endTime - startTime) + ". Среднее время: " + (endTime - startTime) / Math.pow(10, j + 1) / 10;
+                        (allTime) + ". Среднее время: " + (allTime) / Math.pow(10, j + 1) / 10;
                 View.Out(text);
-                My_Logger.addLog(Level.INFO, text);
+                my_logger.addLog(Level.INFO, text);
             }
 
             View.Out("Testing LinkedList");
-            My_Logger.addLog(Level.INFO, "Testing LinkedList");
+            my_logger.addLog(Level.INFO, "Testing LinkedList");
             for (int j = 0; j < 5; j++) {
                 long allTime = 0;
-                My_Logger.addLog(Level.INFO, "Testing LinkedList " + Math.pow(10, j + 1));
-                long startTime = System.currentTimeMillis();
+                my_logger.addLog(Level.INFO, "Testing LinkedList " + Math.pow(10, j + 1));
+//                long startTime = System.currentTimeMillis();
                 for (int i = 0; i < Math.pow(10, j + 1); i++) {
-                    long currentStart = System.currentTimeMillis();
+                    long currentStart = System.nanoTime();
                     laundry.GenerateElementToTheLinkedList();
-                    long currentEnd = System.currentTimeMillis();
+                    long currentEnd = System.nanoTime();
                     long oneTime = currentEnd - currentStart;
                     allTime += oneTime;
-                    My_Logger.addLog(Level.INFO, "add, ID = " + i + ", " + oneTime);
+                    my_logger.addLog(Level.INFO, "add, ID = " + i + ", " + oneTime);
                 }
-                long endTime = System.currentTimeMillis();
+//                long endTime = System.currentTimeMillis();
                 String text = "Процесс заполнения LinkedList, состоящий из " + Math.pow(10, j + 1) + " занял " +
-                        (endTime - startTime) + ". Среднее время: " + (endTime - startTime) / Math.pow(10, j + 1);
+                        (allTime) + ". Среднее время: " + (allTime) / Math.pow(10, j + 1);
                 View.Out(text);
-                My_Logger.addLog(Level.INFO, text);
+                my_logger.addLog(Level.INFO, text);
 
-                startTime = System.currentTimeMillis();
+//                startTime = System.currentTimeMillis();
                 for (int i = 0; i < Math.pow(10, j + 1) / 10; i++) {
-                    long currentStart = System.currentTimeMillis();
+                    long currentStart = System.nanoTime();
                     laundry.RemoveElementFromTheLinkedList(i);
-                    long currentEnd = System.currentTimeMillis();
+                    long currentEnd = System.nanoTime();
                     long oneTime = currentEnd - currentStart;
                     allTime += oneTime;
-                    My_Logger.addLog(Level.INFO, "remove, ID = " + i + ", " + oneTime);
+                    my_logger.addLog(Level.INFO, "remove, ID = " + i + ", " + oneTime);
                 }
-                endTime = System.currentTimeMillis();
+//                endTime = System.currentTimeMillis();
                 text = "Процесс удаления из LinkedList " + Math.pow(10, j + 1) / 10 + " элементов занял " +
-                        (endTime - startTime) + ". Среднее время: " + (endTime - startTime) / Math.pow(10, j + 1) / 10;
+                        (allTime) + ". Среднее время: " + (allTime) / Math.pow(10, j + 1) / 10;
                 View.Out(text);
-                My_Logger.addLog(Level.INFO, text);
+                my_logger.addLog(Level.INFO, text);
             }
         } else if (ROOT) {
             View.Out("Здравствуйте, Хозяин!");
@@ -164,12 +171,13 @@ public class Controller {
                             String text = "Файл успешно загружен";
                             View.Out(text);
                             if (DEBUG)
-                                My_Logger.addLog(Level.INFO, text);
+                                my_logger.addLog(Level.INFO, text);
                         } catch (IOException ex) {
                             String text = "Возникли ошибки при чтении файла";
                             View.Out(text);
                             if (DEBUG)
-                                My_Logger.addErr(new IOException(text));
+                                my_logger.addErr(new IOException(text));
+                            return 0;
                         }
                     }
                     case 2 -> {
@@ -178,18 +186,18 @@ public class Controller {
                             if (res) {
                                 View.Out("Файл успешно сохранен");
                                 if (DEBUG)
-                                    My_Logger.addLog(Level.INFO, "Файл успешно сохранен");
+                                    my_logger.addLog(Level.INFO, "Файл успешно сохранен");
                             } else {
                                 String text = "Возникли ошибки при сохранении";
                                 View.Out(text);
                                 if (DEBUG)
-                                    My_Logger.addLog(Level.WARNING, text);
+                                    my_logger.addLog(Level.WARNING, text);
                             }
                         } catch (IOException ex) {
                             String text = "Возникли ошибки при сохранении";
                             View.Out(text);
                             if (DEBUG)
-                                My_Logger.addErr(new IOException(text));
+                                my_logger.addErr(new IOException(text));
                         }
                     }
                     case 3 -> {
@@ -201,13 +209,13 @@ public class Controller {
                         if (flag) {
                             View.Out("Машина с такими параметрами уже существует");
                             if (DEBUG)
-                                My_Logger.addLog(Level.WARNING, "Безуспешная попытка добавить стиральную машину");
+                                my_logger.addLog(Level.WARNING, "Безуспешная попытка добавить стиральную машину");
                         } else {
                             String text = "Машина успешно добавлена";
                             laundry.AddMachine(new_machine);
                             View.Out(text);
                             if (DEBUG)
-                                My_Logger.addLog(Level.INFO, text);
+                                my_logger.addLog(Level.INFO, text);
                         }
 
                     }
@@ -227,13 +235,13 @@ public class Controller {
                         if (!flag) {
                             View.Out("Машины с такими параметрами нет в прачечной");
                             if (DEBUG)
-                                My_Logger.addLog(Level.WARNING, "Безуспешная попытка удалить стиральную машину");
+                                my_logger.addLog(Level.WARNING, "Безуспешная попытка удалить стиральную машину");
                         } else {
                             String text = "Машина успешно удалена";
                             laundry.DeleteMachine(index);
                             View.Out(text);
                             if (DEBUG)
-                                My_Logger.addLog(Level.INFO, text);
+                                my_logger.addLog(Level.INFO, text);
                         }
                     }
                     case 6 -> {
@@ -251,12 +259,12 @@ public class Controller {
                             View.Out("Машины с такими параметрами нет в прачечной");
                             View.Out("Сначала следует добавить машину для стирки подобного белья");
                             if (DEBUG)
-                                My_Logger.addLog(Level.WARNING, "Безуспешная попытка загрузить белье");
+                                my_logger.addLog(Level.WARNING, "Безуспешная попытка загрузить белье");
                         } else {
                             String text = "Белье успешно загружено";
                             View.Out(text);
                             if (DEBUG)
-                                My_Logger.addLog(Level.INFO, text);
+                                my_logger.addLog(Level.INFO, text);
                         }
                     }
                     case 7 -> {
@@ -265,31 +273,32 @@ public class Controller {
                             if (res) {
                                 View.Out("Файл успешно сохранен");
                                 if (DEBUG)
-                                    My_Logger.addLog(Level.INFO, "Файл успешно сохранен");
+                                    my_logger.addLog(Level.INFO, "Файл успешно сохранен");
                             } else {
                                 String text = "Возникли ошибки при сохранении";
                                 View.Out(text);
                                 if (DEBUG)
-                                    My_Logger.addLog(Level.WARNING, text);
+                                    my_logger.addLog(Level.WARNING, text);
                             }
                         } catch (IOException ex) {
                             String text = "Возникли ошибки при сохранении";
                             View.Out(text);
                             if (DEBUG)
-                                My_Logger.addErr(new IOException(text));
+                                my_logger.addErr(new IOException(text));
                         }
                         View.Out("До новых встреч!");
                         if (DEBUG)
-                            My_Logger.addLog(Level.INFO, USER + " закончил работу");
+                            my_logger.addLog(Level.INFO, USER + " закончил работу");
                     }
                     default -> {
                         View.Out("Некорректное число! Попробуйте снова");
                         if (DEBUG)
-                            My_Logger.addLog(Level.WARNING, "Попытка ввести некорректное значение");
+                            my_logger.addLog(Level.WARNING, "Попытка ввести некорректное значение");
                     }
                 }
             } while (n != 7);
         }
+        return 0;
     }
 }
 
