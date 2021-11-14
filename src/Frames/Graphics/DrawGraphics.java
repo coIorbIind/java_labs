@@ -1,4 +1,4 @@
-package SwingApp.Lol;
+package Frames.Graphics;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,6 @@ public class DrawGraphics extends JComponent {
     double topY = 50;
     double width = 400;
     double height = 300;
-    private Graphics2D graphics2D;
 
     public DrawGraphics(String xTitleValue, String yTitleValue, ArrayList<Float> xDataValue, ArrayList<Float> yDataValue, ArrayList<Float> yDataLinkedValue) {
         this.xData = xDataValue;
@@ -31,7 +30,6 @@ public class DrawGraphics extends JComponent {
     public void paintComponent(Graphics g) {
 
         Graphics2D g2 = (Graphics2D) g;
-        this.graphics2D = g2;
         ArrayList<Float> allY = new ArrayList<Float>(yDataArray);
         allY.addAll(yDataLinked);
         float scaleXW = (float) ((Math.log10(Collections.max(xData))) / width);

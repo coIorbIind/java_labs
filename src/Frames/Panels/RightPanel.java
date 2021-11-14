@@ -1,4 +1,6 @@
-package SwingApp.Lol;
+package Frames.Panels;
+
+import Frames.Graphics.DrawGraphics;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 
 public class RightPanel extends JPanel{
 
-    RightPanel(){
+    public RightPanel(){
 
         ArrayList<Float> X_A = new ArrayList<Float>();
         X_A.add(0F);

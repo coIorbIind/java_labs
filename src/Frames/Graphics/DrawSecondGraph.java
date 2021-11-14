@@ -1,4 +1,4 @@
-package SwingApp.Lol;
+package Frames.Graphics;
 
 import javax.swing.*;
 import java.awt.*;

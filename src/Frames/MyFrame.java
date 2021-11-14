@@ -1,14 +1,16 @@
-package SwingApp.Lol;
+package Frames;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
+
+import Frames.Panels.LeftPanel;
+import Frames.Panels.RightPanel;
 
 public class MyFrame extends JFrame {
 
     LeftPanel leftPanel;
 
-    MyFrame(){
+    public MyFrame(){
         this.setTitle("My Graphics");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000, 500);

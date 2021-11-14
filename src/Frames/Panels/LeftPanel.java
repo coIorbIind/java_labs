@@ -1,4 +1,6 @@
-package SwingApp.Lol;
+package Frames.Panels;
+
+import Frames.Graphics.DrawGraphics;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -9,7 +11,7 @@ public class LeftPanel extends JPanel{
 
 
 
-    LeftPanel(){
+    public LeftPanel(){
         ArrayList <Float> X_A = new ArrayList<Float>();
         X_A.add(0F);
         X_A.add(10F);
@@ -59,7 +61,7 @@ public class LeftPanel extends JPanel{
         this.add(topPanel, BorderLayout.NORTH);
         this.add(lowPanel, BorderLayout.SOUTH);
         this.add(new DrawGraphics("ед", "мс", X_A, Y_A, Y_L));
-//        this.add(new DrawSecondGraph(X_L, Y_L));
+//        this.add(new Frames.Graphics.DrawSecondGraph(X_L, Y_L));
     }
 
 //    public static class LowPanel extends JPanel{
