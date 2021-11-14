@@ -94,7 +94,7 @@ public class Controller {
                     long currentEnd = System.nanoTime();
                     long oneTime = currentEnd - currentStart;
                     allTime += oneTime;
-                    my_logger.addLog(Level.INFO, "add, ID = " + i + ", " + oneTime);
+//                    my_logger.addLog(Level.INFO, "add, ID = " + i + ", " + oneTime);
                 }
 //                long endTime = System.currentTimeMillis();
                 String text = "Процесс заполнения ArrayList, состоящий из " + Math.pow(10, j + 1) + " занял " +
@@ -110,7 +110,7 @@ public class Controller {
                     long currentEnd = System.nanoTime();
                     long oneTime = currentEnd - currentStart;
                     allTime += oneTime;
-                    my_logger.addLog(Level.INFO, "remove, ID = " + i + ", " + oneTime);
+//                    my_logger.addLog(Level.INFO, "remove, ID = " + i + ", " + oneTime);
                 }
 //                endTime = System.currentTimeMillis();
                 text = "Процесс удаления из ArrayList " + Math.pow(10, j + 1) / 10 + " элементов занял " +
@@ -131,7 +131,7 @@ public class Controller {
                     long currentEnd = System.nanoTime();
                     long oneTime = currentEnd - currentStart;
                     allTime += oneTime;
-                    my_logger.addLog(Level.INFO, "add, ID = " + i + ", " + oneTime);
+//                    my_logger.addLog(Level.INFO, "add, ID = " + i + ", " + oneTime);
                 }
 //                long endTime = System.currentTimeMillis();
                 String text = "Процесс заполнения LinkedList, состоящий из " + Math.pow(10, j + 1) + " занял " +
@@ -146,7 +146,7 @@ public class Controller {
                     long currentEnd = System.nanoTime();
                     long oneTime = currentEnd - currentStart;
                     allTime += oneTime;
-                    my_logger.addLog(Level.INFO, "remove, ID = " + i + ", " + oneTime);
+//                    my_logger.addLog(Level.INFO, "remove, ID = " + i + ", " + oneTime);
                 }
 //                endTime = System.currentTimeMillis();
                 text = "Процесс удаления из LinkedList " + Math.pow(10, j + 1) / 10 + " элементов занял " +
