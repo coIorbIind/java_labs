@@ -60,7 +60,7 @@ public class LeftPanel extends JPanel{
 
         this.add(topPanel, BorderLayout.NORTH);
         this.add(lowPanel, BorderLayout.SOUTH);
-        this.add(new DrawGraphics("ед", "мс", X_A, Y_A, Y_L));
+        this.add(new DrawGraphics("ед", "мкс", X_A, Y_A, Y_L));
 //        this.add(new Frames.Graphics.DrawSecondGraph(X_L, Y_L));
     }
 

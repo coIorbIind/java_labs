@@ -45,6 +45,7 @@ public class DrawGraphics extends JComponent {
         g2.drawString(yTitle, (int) (leftX - 35), (int) (topY - 15));
         Font EdX = new Font("Arial", Font.PLAIN, 10);
         g2.setFont(EdX);
+        g2.setStroke(new BasicStroke(2));
 
         for (int i = 0; i < xData.size() - 1; i++) {
             double FirstX;
@@ -79,9 +80,7 @@ public class DrawGraphics extends JComponent {
             g2.setColor(Color.BLUE);
 
             //Рисуем квадраты, обозначающие точки
-            Rectangle2D rec = new Rectangle2D.Double(FirstX - 3, FirstY1 - 3, 6, 6);
-            g2.draw(rec);
-            g2.fill(rec);
+            g2.fill(new Rectangle2D.Double(FirstX - 3, FirstY1 - 3, 6, 6));
 
             //Соединяем точки линиями
             g2.draw(new Line2D.Double(FirstX, FirstY1, SecondX, SecondY1));
@@ -101,9 +100,8 @@ public class DrawGraphics extends JComponent {
             //Особо обрабатываем последнюю точку
             if (i == xData.size() - 2) {
                 g2.setColor(Color.BLUE);
-                rec = new Rectangle2D.Double(SecondX - 3, SecondY1 - 3, 6, 6);
-                g2.draw(rec);
-                g2.fill(rec);
+                g2.draw(new Rectangle2D.Double(SecondX - 3, SecondY1 - 3, 6, 6));
+                g2.fill(new Rectangle2D.Double(SecondX - 3, SecondY1 - 3, 6, 6));
                 g2.setColor(Color.RED);
                 rec2 = new Rectangle2D.Double(SecondX - 3, SecondY2 - 3, 6, 6);
                 g2.draw(rec2);
